@@ -4,15 +4,17 @@
             <i class="layui-icon layui-icon-search search"></i>
             <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="考点查询" class="layui-input">
             <ul class="layui-nav layui-nav-tree">
-                <li class="layui-nav-item" ng-class="{'layui-nav-itemed':$index === menuIndex.firstMenuListIndex }" ng-repeat="item in slideFirstMenuList" ng-click="getSecondMenu(item,$index)">
+                <li class="layui-nav-item" ng-class="{'layui-nav-itemed':$index === menuIndex.firstMenuListIndex }"
+                    ng-repeat="item in slideFirstMenuList" ng-click="getSecondMenu(item,$index)">
                     <a class="" href="javascript:;">
                         <img ng-src="{{item.img}}" alt=""> <span ng-bind="item.name"></span>
                         <i ng-if="$index !== menuIndex.firstMenuListIndex" class="layui-icon layui-icon-right"></i>
                         <i ng-if="$index === menuIndex.firstMenuListIndex" class="layui-icon layui-icon-down"></i>
                     </a>
                     <dl class="layui-nav-child secondMenuList" ng-if="secondMenuList.length > 0 && $index === menuIndex.firstMenuListIndex">
-                        <dd ng-repeat="item1 in secondMenuList"   ng-class="{'layui-nav-child-active1':$index === menuIndex.secondMenuListIndex }" ng-click="getNextMenu($event,item1,$index)">
-                            <a href="javascript:;" >
+                        <dd ng-repeat="item1 in secondMenuList" ng-class="{'layui-nav-child-active1':$index === menuIndex.secondMenuListIndex }"
+                            ng-click="getNextMenu($event,item1,$index)">
+                            <a href="javascript:;">
                                 <label></label><span ng-bind="item1.name"></span>
                                 <i ng-if="$index !== menuIndex.secondMenuListIndex && item1.childId" class="layui-icon layui-icon-triangle-r"></i>
                                 <i ng-if="$index === menuIndex.secondMenuListIndex && item1.childId" class="layui-icon layui-icon-triangle-d"></i>
@@ -40,7 +42,7 @@
         <div class="layui-col-md5 msgContent">
             <div class="layui-side-scroll msgList">
                 <p class="other">
-                    <label style="">时间</label>    
+                    <label style="">时间</label>
                     <img class="photo" src="src/images/user1.png" alt="">
                     <img class="otherPhoto" src="src/images/hui.png" alt="">
                     <span class="usermsg">微信端消息</span>
@@ -48,7 +50,7 @@
                 <p class="me">
                     <label>时间</label>
                     <span class="usermsg">当前用户消息</span>
-                    <img  class="mePhoto" src="src/images/lan.png" alt="">
+                    <img class="mePhoto" src="src/images/lan.png" alt="">
                     <img class="photo" src="src/images/user2.png" alt="">
                 </p>
             </div>
@@ -59,37 +61,52 @@
                     <button class="layui-btn layui-btn-primary">预览</button>
                     <button class="layui-btn layui-btn-primary">回答完毕</button>
                     <button class="layui-btn layui-btn-primary">转出</button>
-                    <button class="layui-btn layui-btn-primary  layui-btn-small">转专家</button>    
+                    <button class="layui-btn layui-btn-primary  layui-btn-small">转专家</button>
                 </div>
             </div>
         </div>
         <div class="layui-col-md7">
             <div class="layui-tab" style="height:{{winHeight()*0.45 - 60}}px;">
                 <ul class="layui-tab-title">
-                    <li  ng-class="{'layui-this': tabItemIndex === 0}" ng-click="tabItemChange(0)">表情</li>
-                    <li  ng-class="{'layui-this': tabItemIndex === 1}" ng-click="tabItemChange(1)">规范</li>
-                    <li  ng-class="{'layui-this': tabItemIndex === 2}" ng-click="tabItemChange(2)">话术</li>
-                    <li  ng-click="tabItemChange(3)">
+                    <li ng-class="{'layui-this': tabItemIndex === 0}" ng-click="tabItemChange(0)">表情</li>
+                    <li ng-class="{'layui-this': tabItemIndex === 1}" ng-click="tabItemChange(1)">规范</li>
+                    <li ng-class="{'layui-this': tabItemIndex === 2}" ng-click="tabItemChange(2)">话术</li>
+                    <li ng-click="tabItemChange(3)">
                         自定义
                     </li>
                 </ul>
-                <div class="layui-tab-content layui-side-scroll"  style="height:{{winHeight()*0.45 - 60 - 61}}px;width:100%;">
+                <div class="layui-tab-content layui-side-scroll" style="height:{{winHeight()*0.45 - 60 - 61}}px;width:100%;">
                     <div class="layui-tab-item" ng-class="{'layui-show': tabItemIndex === 0}">
                         <img ng-click="sendEmo(item)" class="emo" ng-src="{{item}}" alt="" ng-repeat="item in emoticon">
                     </div>
-                    <div class="layui-tab-item" ng-class="{'layui-show': tabItemIndex === 1}">规范</div>
-                    <div class="layui-tab-item" ng-class="{'layui-show': tabItemIndex === 2}">
+                    <div class="layui-tab-item" ng-class="{'layui-show': tabItemIndex === 1}">
                         <div class="layui-row speechcraftList-container" ng-repeat="item in speechcraftList">
-                            <div class="layui-col-md3"  ng-repeat="item1 in item">
+                            <div class="layui-col-md3" ng-repeat="item1 in item">
                                 <span class="speechcraftList">
                                     <label ng-bind="item1.title" ng-if="!item1.type"></label>
                                     <label class="btns">
-                                        <button  ng-if="item1.type" class="add"  ng-click="addSpeechcraft(item1)">
+                                        <button ng-if="item1.type" class="add" ng-click="addSpeechcraft(item1)">
+                                            <i class="layui-icon layui-icon-add-1"></i>
+                                        </button>
+                                        <button class="send" ng-if="!item1.type" ng-click="sendSpeechcraft(item1)">发送</button>
+                                    </label>
+
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-tab-item" ng-class="{'layui-show': tabItemIndex === 2}">
+                        <div class="layui-row speechcraftList-container" ng-repeat="item in speechcraftList">
+                            <div class="layui-col-md3" ng-repeat="item1 in item">
+                                <span class="speechcraftList">
+                                    <label ng-bind="item1.title" ng-if="!item1.type"></label>
+                                    <label class="btns">
+                                        <button ng-if="item1.type" class="add" ng-click="addSpeechcraft(item1)">
                                             <i class="layui-icon layui-icon-add-1"></i>
                                         </button>
                                         <button class="insert" ng-if="!item1.type" ng-click="addSendConetent(item1)">插入</button>
-                                        <button class="send"  ng-if="!item1.type" ng-click="sendSpeechcraft(item1)">发送</button>
-                                    </label>  
+                                        <button class="send" ng-if="!item1.type" ng-click="sendSpeechcraft(item1)">发送</button>
+                                    </label>
 
                                 </span>
                             </div>
