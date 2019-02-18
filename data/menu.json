@@ -1,0 +1,32 @@
+[
+    {
+        "name": "消防基础知识",
+        "id": 1,
+        "childId":1,
+        "img": "src/images/left_icon1.png"
+    },
+    {
+        "name": "建筑防火",
+        "id": 2,
+        "childId": 2,
+        "img": "src/images/left_icon2.png"
+    },
+    {
+        "name": "建筑消防设施",
+        "id": 3,
+        "childId": 3,
+        "img": "src/images/left_icon3.png"
+    },
+    {
+        "name": "其他建筑、场所防火",
+        "id": 4,
+        "childId": 4,
+        "img": "src/images/left_icon4.png"
+    },
+    {
+        "name": "消防安全评估",
+        "id": 5,
+        "childId": 5,
+        "img": "src/images/left_icon5.png"
+    }
+]
