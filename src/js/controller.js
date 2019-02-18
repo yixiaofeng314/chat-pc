@@ -1,20 +1,21 @@
 angular.module('starter.controllers', [])
-    .controller('loginCtrl', function ($scope){
+    .controller('loginCtrl', function ($scope) {
 
     })
-    .controller('systermCtrl', function ($scope, systermHttp, $location){
+    .controller('systermCtrl', function ($scope, systermHttp, $location) {
         /**
          * 获取窗口高度
          */
-        $scope.winHeight = function(){
+        $scope.winHeight = function () {
             return window.innerHeight;
         };
         /**
          * 获取侧边一级菜单
          * @param {*} showloading  boolean 是否显示loading框
+         * @param {*} showloading  1:表示综合 2:表示实务
          */
-        function getSlideFirstMenuList(showloading){
-            systermHttp.getSlideFirstMenuList(null,showloading).then(function(res){
+        function getSlideFirstMenuList(showloading, type) {
+            systermHttp.getSlideFirstMenuList({ type: type }, showloading).then(function (res) {
                 $scope.slideFirstMenuList = res.data || [];
             });
         }
@@ -23,19 +24,19 @@ angular.module('starter.controllers', [])
          * 菜单下标存储
          */
         $scope.menuIndex = {
-            firstMenuListIndex : -1,
+            firstMenuListIndex: -1,
             secondMenuListIndex: -1,
-            nextMenuListIndex:-1
+            nextMenuListIndex: -1
         }
         /**
          * 一级菜单点击事件
          */
-        $scope.getSecondMenu = function(obj,index){
-            if ($scope.menuIndex.firstMenuListIndex !== index){
+        $scope.getSecondMenu = function (obj, index) {
+            if ($scope.menuIndex.firstMenuListIndex !== index) {
                 $scope.menuIndex.firstMenuListIndex = index;
                 $scope.menuIndex.secondMenuListIndex = -1;
-                getSecondMenuList(obj.childId,false);
-            }else{
+                getSecondMenuList(obj.childId, false);
+            } else {
                 $scope.menuIndex.firstMenuListIndex = -1;
                 $scope.menuIndex.secondMenuListIndex = -1;
             }
@@ -45,25 +46,25 @@ angular.module('starter.controllers', [])
          * @param {*} showloading   boolean 是否显示loading框
          * @param {*} id 一级菜单childId
          */
-        function getSecondMenuList(id,showloading){
-            systermHttp.getSecondMenuList({id:id}, showloading).then(function (res) {
+        function getSecondMenuList(id, showloading) {
+            systermHttp.getSecondMenuList({ id: id }, showloading).then(function (res) {
                 $scope.secondMenuList = res.data || [];
             });
         }
         /**
          * 二级菜单点击事件
          */
-        $scope.getNextMenu = function(e,obj,index){
+        $scope.getNextMenu = function (e, obj, index) {
             e.stopPropagation();
             if ($scope.menuIndex.secondMenuListIndex !== index) {
                 $scope.menuIndex.secondMenuListIndex = index;
-                $scope.menuIndex.nextMenuListIndex = -1;    
-                if (obj.childId){
+                $scope.menuIndex.nextMenuListIndex = -1;
+                if (obj.childId) {
                     getNextMenu(obj.childId, false);
-                }else{
+                } else {
 
                 }
-                
+
             } else {
                 $scope.menuIndex.nextMenuListIndex = $scope.menuIndex.secondMenuListIndex = -1;
             }
@@ -73,7 +74,7 @@ angular.module('starter.controllers', [])
          * @param {*} id 二级菜单childid
          * @param {*} showloading  boolean 是否显示loading框
          */
-        function getNextMenu(id, showloading){
+        function getNextMenu(id, showloading) {
             systermHttp.getNextMenu({ id: id }, showloading).then(function (res) {
                 $scope.nextMenuList = res.data || [];
                 console.log($scope.nextMenuList);
@@ -82,22 +83,22 @@ angular.module('starter.controllers', [])
         /**
          * 三级菜单点击事件
          */
-        $scope.childNavChange = function (e, obj, index){
+        $scope.childNavChange = function (e, obj, index) {
             e.stopPropagation();
             if ($scope.menuIndex.nextMenuListIndex !== index) {
                 $scope.menuIndex.nextMenuListIndex = index;
-            } 
+            }
         }
         /**
          * tab面板切换
          */
         $scope.tabItemIndex = 0;
-        $scope.tabItemChange = function(index){
-            if (index === 3){
+        $scope.tabItemChange = function (index) {
+            if (index === 3) {
                 $location.path("/editpage")
-            }else{
+            } else {
                 $scope.tabItemIndex = index;
-            }   
+            }
         }
         /**
         * 获取表情包
@@ -122,20 +123,20 @@ angular.module('starter.controllers', [])
          * 获取话术列表
          * @param {*} showloading 
          */
-        function getSpeechcraftList(showloading){
-            systermHttp.getSpeechcraftList(null, showloading).then(function(res){
+        function getSpeechcraftList(showloading) {
+            systermHttp.getSpeechcraftList(null, showloading).then(function (res) {
                 var data = res.data || [];
                 data.push({ //用于判断是否是新增按钮
-                    type:"add"
+                    type: "add"
                 });
-                var len = Math.ceil(data.length/4);
+                var len = Math.ceil(data.length / 4);
                 $scope.speechcraftList = [];
-                for(var i = 0 ; i < len ; i++){
+                for (var i = 0; i < len; i++) {
                     $scope.speechcraftList.push([]);
-                    for (var j = 0; j < 4 ; j++){
-                        if (data[i * 4 + j]){
+                    for (var j = 0; j < 4; j++) {
+                        if (data[i * 4 + j]) {
                             $scope.speechcraftList[i].push(data[i * 4 + j]);
-                        }    
+                        }
                     }
                 }
             });
@@ -145,17 +146,17 @@ angular.module('starter.controllers', [])
         /**
          * 话术发送点击事件
          */
-        $scope.sendSpeechcraft = function(obj){
+        $scope.sendSpeechcraft = function (obj) {
             console.log(obj);
         }
         /**
          * 话术插入点击事件
          */
-        $scope.addSendConetent = function(obj){
+        $scope.addSendConetent = function (obj) {
             console.log(obj);
         }
     })
-    .controller("editpageCtrl",function($scope){
+    .controller("editpageCtrl", function ($scope) {
         $scope.config = {
             //初始化编辑器内容
             content: '<p>请输入内容</p>',
@@ -179,11 +180,11 @@ angular.module('starter.controllers', [])
             imagePopup: true,
             //提交到后台的数据是否包含整个html字符串
             allHtmlEnabled: false,//额外功能添加  
-                         
-            functions :['insertimage']
-        }     
+
+            functions: ['insertimage']
+        }
         var editor;
-        
+
         KindEditor.ready(function (K) {
             console.log(K);
             editor = KindEditor.create('textarea[name="content"]', {

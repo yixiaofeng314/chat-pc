@@ -3,6 +3,7 @@
         <div class="layui-side-scroll">
             <i class="layui-icon layui-icon-search search"></i>
             <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="考点查询" class="layui-input">
+            <p class="first-level">综合</p>
             <ul class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item" ng-class="{'layui-nav-itemed':$index === menuIndex.firstMenuListIndex }"
                     ng-repeat="item in slideFirstMenuList" ng-click="getSecondMenu(item,$index)">
@@ -30,6 +31,7 @@
                     </dl>
                 </li>
             </ul>
+            <p class="first-level">实务</p>
         </div>
     </div>
     <div class="layui-row content">
